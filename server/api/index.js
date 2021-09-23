@@ -1,12 +1,6 @@
 const router = require('express').Router()
 const Scrape = require('./scrapingFunction')
 
-/**
- * {
-    url: "http....",
-    searchWord: 'help'
-    }
- */
 
 router.get('/', async (req, res, next) => {
   try {

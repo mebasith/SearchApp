@@ -6,6 +6,8 @@ const URLSearch = () =>{
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResultsTotal, setSearchResultsTotal] = useState(null)
   const [showTable, setTable] = useState(false)
+  const [isLoading, setLoading] = useState(false)
+  const [isError, setError] = useState(false)
 
 
   const handleChange = (origin) => (e) => {
@@ -18,19 +20,34 @@ const URLSearch = () =>{
   }
 
   const handleSubmit = async (e) => {
-    console.log('submitted!!!')
     e.preventDefault()
+    if(isError){
+      setError(false)
+    }
+    if(showTable){
+      setTable(false)
+    }
+    setLoading(true)
     if(searchResultsTotal){
       setSearchResultsTotal(null)
     }
-    const {data: newResultTotal} = await axios.post('http://localhost:1337/api', {
+    try{
+      const {data: newResultTotal} = await axios.post('http://localhost:1337/api', {
       url: url,
       searchTerm: searchTerm
     })
-    setSearchResultsTotal(newResultTotal)
-    setTable(true)
-    //const {data: currentSearchResult} = await axios.get('http://localhost:1337/api')
-    
+    if(newResultTotal==='Error'){
+      setLoading(false)
+      setError(true)
+    }
+    else{
+      setSearchResultsTotal(newResultTotal)
+      setLoading(false)
+      setTable(true)
+    }
+    } catch(err){
+      conosole.log(err)
+    }
   }
 
   const generateTime = () => {
@@ -40,7 +57,6 @@ const URLSearch = () =>{
   }
 
   const displayTable = () =>{
-    console.log('displayed!!!!!')
     let term = searchTerm.slice()
     let site = url.slice()
     return (
@@ -65,6 +81,10 @@ const URLSearch = () =>{
     )
   }
 
+  const errorMessage = () =>{
+    setError(true)
+  }
+
   return (
     <div>
     <h3 className="centered">Enter a URL and a search term below:</h3>
@@ -75,6 +95,8 @@ const URLSearch = () =>{
       <input value = {searchTerm} onChange={handleChange('searchTerm')}></input>
       <button type="submit">Submit</button>
     </form>
+    {isLoading ? <h3 className='centered'>Loading...</h3> : null}
+    {isError ? <h3 className='centered'>Invalid URL</h3> : null}
     {showTable ? displayTable() : null}
     </div>
   )

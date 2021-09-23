@@ -33,10 +33,14 @@ const Scrape = (res, url, searchTerm) => {
         console.log('found-->', found)
         
         await browser.close ();
-        res.json(found.length)
+        if(found===null){
+            res.json(0)
+        }
+        else res.json(found.length)
     })
     //handling any errors
     .catch (function (err) {
+        res.json("Error")
         console.error (err);
     });
 }
