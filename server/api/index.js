@@ -24,8 +24,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {url, searchTerm} = req.body
-    let search = await Scrape(url, searchTerm)
-    res.json('recieved');
+    await Scrape(res, url, searchTerm)
   } catch (error) {
     next(error);
   }

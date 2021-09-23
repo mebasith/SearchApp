@@ -46,6 +46,13 @@ a {
 h1 {
   font-size: 2em;
 }
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+  margin: 5rem;
+}
 .nav-item {
   height: 1.5em;
   margin: 0 1.5em 0 0;

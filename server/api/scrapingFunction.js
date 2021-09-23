@@ -6,12 +6,14 @@ const Scrape = (res, url, searchTerm) => {
     while(termArray[0]=== ' '){
         termArray.shift()
     }
-    while(termArray[termArray.length-1]===' ' && termArray[termArray-2]===' '){
+    while(termArray[termArray.length-1]===' '){
         termArray.pop()
     }
+    console.log('array--->', termArray)
     // if(termArray[termArray.length-1]!==' '){
     //     termArray.push(' ')
     // }
+    //termArray.push('$')
     searchTerm = termArray.join('')
 
     console.log('new--->', searchTerm.length)
@@ -25,13 +27,13 @@ const Scrape = (res, url, searchTerm) => {
         await page.goto(url);
         //await page.waitForSelector('body');
         const extractedText = await page.$eval('*', (el) => el.innerText)
-        const regex = new RegExp("^", searchTerm, "$gi")
+        const regex = new RegExp(`\\b${searchTerm}\\b`, "gi")
         //const regex = /(help\s)/gi
         const found = extractedText.match(regex)
         console.log('found-->', found)
         
         await browser.close ();
-        res.json({result: found})
+        res.json(found.length)
     })
     //handling any errors
     .catch (function (err) {
