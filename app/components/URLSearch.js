@@ -8,6 +8,7 @@ const URLSearch = () =>{
   const [showTable, setTable] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [isError, setError] = useState(false)
+  const [currentSubmission, setSubmission] = useState({})
 
 
   const handleChange = (origin) => (e) => {
@@ -19,18 +20,24 @@ const URLSearch = () =>{
     }
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const cleanup  = () => {
     if(isError){
       setError(false)
     }
     if(showTable){
       setTable(false)
     }
-    setLoading(true)
     if(searchResultsTotal){
       setSearchResultsTotal(null)
     }
+    setLoading(true)
+    setSubmission({ url: url.slice(), searchTerm: searchTerm.slice(), time: generateTime()})
+  }
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    cleanup()
     try{
       const {data: newResultTotal} = await axios.post('http://localhost:1337/api', {
       url: url,
@@ -57,8 +64,9 @@ const URLSearch = () =>{
   }
 
   const displayTable = () =>{
-    let term = searchTerm.slice()
-    let site = url.slice()
+    const term = currentSubmission.searchTerm
+    const site = currentSubmission.url
+    const time = currentSubmission.time
     return (
       <div className="centered">
        <table>
@@ -73,7 +81,7 @@ const URLSearch = () =>{
           <td>{term}</td>
           <td>{site}</td>
           <td>{searchResultsTotal}</td>
-          <td>{generateTime()}</td>
+          <td>{time}</td>
         </tr>
         </tbody>
       </table>
@@ -81,9 +89,7 @@ const URLSearch = () =>{
     )
   }
 
-  const errorMessage = () =>{
-    setError(true)
-  }
+  
 
   return (
     <div>
