@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios'
 
 const URLSearch = () =>{
@@ -20,7 +20,8 @@ const URLSearch = () =>{
     }
   }
 
-  const cleanup  = () => {
+  //this function will cleanup state between searches
+  const stateCleanup  = () => {
     if(isError){
       setError(false)
     }
@@ -37,7 +38,7 @@ const URLSearch = () =>{
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    cleanup()
+    stateCleanup()
     try{
       const {data: newResultTotal} = await axios.post('http://localhost:1337/api', {
       url: url,
@@ -53,7 +54,7 @@ const URLSearch = () =>{
       setTable(true)
     }
     } catch(err){
-      conosole.log(err)
+      console.log(err)
     }
   }
 

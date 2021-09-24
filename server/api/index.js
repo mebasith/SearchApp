@@ -1,24 +1,24 @@
 const router = require('express').Router()
-const Scrape = require('./scrapingFunction')
+const scrapingFunction = require('./scrapingFunction')
 
 
-router.get('/', async (req, res, next) => {
-  try {
+//GET route written for testing purposes only
+// router.get('/', async (req, res, next) => {
+//   try {
     
-    let result = await Scrape(res, 'https://www.forextradingbig.com/instaforex-broker-review/', 'Big')
+//     let result = await Scrape(res, 'https://www.forextradingbig.com/instaforex-broker-review/', 'Big')
       
-      console.log(result)
-    //res.json({result: result});
-  } catch (error) {
-    next(error);
-  }
-});
+//     console.log(result)
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
-
+//POST /api
 router.post('/', async (req, res, next) => {
   try {
     const {url, searchTerm} = req.body
-    await Scrape(res, url, searchTerm)
+    await scrapingFunction(res, url, searchTerm)
   } catch (error) {
     next(error);
   }
