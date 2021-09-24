@@ -99,12 +99,13 @@ const URLSearch = () =>{
     <div>
     <h3 className="centered">Enter a URL and a search term below:</h3>
     <form onSubmit={handleSubmit} className="centered">
-      <label> URL: </label>
+      <label> URL </label>
       <input value = {url} onChange={handleChange('url')}></input>
       <label> Search term: </label>
       <input value = {searchTerm} onChange={handleChange('searchTerm')}></input>
       <button type="submit">Submit</button>
     </form>
+    <h4 className="centered">Please include full URL address</h4>
     {isLoading ? <h3 className='centered'>Loading...</h3> : null}
     {isError ? <h3 className='centered'>Invalid URL</h3> : null}
     {showTable ? displayTable() : null}
