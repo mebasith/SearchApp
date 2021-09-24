@@ -1,7 +1,7 @@
 # My Approach 
 
 ## Languages/Technologies
-- I built the backend of the app using Node.js and Express.js to run the server. I built the frontend with React.js. I chose these technologies. I chose these technologies largely based on my familiarity with them, which I thought would give me the best opportunity to efficiently complete the assignment in the timeframe. 
+- I built the backend of the app using Node.js and Express.js to run the server. I built the frontend with React.js. I chose these technologies. I chose these technologies largely based on my familiarity with them (though React.js was a requirement here), which I thought would give me the best opportunity to efficiently complete the assignment in the timeframe. 
 ## Backend
 
 ### Webscraping 

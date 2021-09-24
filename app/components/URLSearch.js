@@ -10,7 +10,7 @@ const URLSearch = () =>{
   const [isError, setError] = useState(false)
   const [currentSubmission, setSubmission] = useState({})
 
-
+  //this function updates the input boxes as the user types in the UI for the form
   const handleChange = (origin) => (e) => {
     if(origin==='url'){
       setUrl(e.target.value)
@@ -32,10 +32,11 @@ const URLSearch = () =>{
       setSearchResultsTotal(null)
     }
     setLoading(true)
+    //hold the submission in a separate piece of state, so that the table doesn't update with any further updates to the form inputs
     setSubmission({ url: url.slice(), searchTerm: searchTerm.slice(), time: generateTime()})
   }
 
-
+  //this function does the work of making the post request for the user as soon as the user hits submit
   const handleSubmit = async (e) => {
     e.preventDefault()
     stateCleanup()
@@ -58,12 +59,14 @@ const URLSearch = () =>{
     }
   }
 
+  //this function generates the time of the scrape, to be shown in the table
   const generateTime = () => {
     const date = new Date()
     const time = date.toLocaleTimeString()
     return time
   }
 
+  //this function generates the table based on 
   const displayTable = () =>{
     const term = currentSubmission.searchTerm
     const site = currentSubmission.url
