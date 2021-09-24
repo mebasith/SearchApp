@@ -8,4 +8,4 @@
 4. Navigate to [localhost:1337](http://localhost:1337) to view the UI and begin using the application.
 
 
-
+![URLSearchGif]()
