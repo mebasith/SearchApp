@@ -66,7 +66,7 @@ const URLSearch = () =>{
     return time
   }
 
-  //this function generates the table based on 
+  //this function generates the table based on the state after the search
   const displayTable = () =>{
     const term = currentSubmission.searchTerm
     const site = currentSubmission.url
