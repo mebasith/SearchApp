@@ -26,7 +26,6 @@ const scrapingFunction = (res, url, searchTerm) => {
         pull all the text from a page
         */
         const extractedText = await page.$eval('*', (el) => el.innerText)
-        console.log(extractedText)
         const regex = new RegExp(`\\b${searchTerm}\\b`, "gi")
         const found = extractedText.match(regex)
         await browser.close ();
