@@ -26,9 +26,12 @@ const scrapingFunction = (res, url, searchTerm) => {
         pull all the text from a page
         */
         const extractedText = await page.$eval('*', (el) => el.innerText)
-        console.log(extractedText)
+        //\W*((?i){searchTerm}(?-i))\W*
+        //const regex = new RegExp(`\W*((?i)${searchTerm}(?-i))\W*`, "gi")
         const regex = new RegExp(`\\b${searchTerm}\\b`, "gi")
+        //const regexPunc = new RegExp(`\\b${searchTerm}\\b`, "gi")
         const found = extractedText.match(regex)
+        console.log('found---->', found)
         await browser.close ();
         if(found===null){
             res.json(0)
